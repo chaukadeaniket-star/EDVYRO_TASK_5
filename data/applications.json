@@ -1,0 +1,28 @@
+{
+  "internships": [
+    {
+      "id": 1,
+      "title": "Full Stack Developer Intern",
+      "company": "EdVyro",
+      "location": "Remote",
+      "duration": "3 Months",
+      "skills": ["HTML", "CSS", "JavaScript", "Node.js"]
+    },
+    {
+      "id": 2,
+      "title": "Frontend Developer Intern",
+      "company": "EdVyro",
+      "location": "Remote",
+      "duration": "2 Months",
+      "skills": ["HTML", "CSS", "JavaScript"]
+    },
+    {
+      "id": 3,
+      "title": "Backend Developer Intern",
+      "company": "EdVyro",
+      "location": "Remote",
+      "duration": "3 Months",
+      "skills": ["Node.js", "Express", "SQL"]
+    }
+  ]
+}
