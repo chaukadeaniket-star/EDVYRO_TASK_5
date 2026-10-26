@@ -52,13 +52,7 @@ jobs:
 
           curl --fail --silent --show-error \
             --request POST \
-
-
-
-
-
-            
             "$RENDER_DEPLOY_HOOK"
 
           echo "Render deployment trigger sent successfully."
-```
+
