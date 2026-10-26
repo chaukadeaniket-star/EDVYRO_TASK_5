@@ -5,18 +5,21 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
   test:
-    name: Run Tests
+    name: Run Automated Tests
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -29,20 +32,23 @@ jobs:
         run: npm test
 
   deploy:
-    name: Deploy to Render
+    name: Trigger Render Deployment
     runs-on: ubuntu-latest
     needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
       - name: Trigger Render deployment
-        if: github.event_name == 'push'
         env:
           RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
         run: |
           if [ -z "$RENDER_DEPLOY_HOOK" ]; then
-            echo "RENDER_DEPLOY_HOOK secret is not configured."
+            echo "Missing GitHub secret: RENDER_DEPLOY_HOOK"
             exit 1
           fi
+          curl --fail --silent --show-error \ 
+          -X POST "$RENDER_DEPLOY_HOOK"
+
           curl --fail --silent --show-error \
             -X POST "$RENDER_DEPLOY_HOOK"
-
+```
